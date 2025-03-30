@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de lucratividade</title>
+    <style>
+        :root {
+            --background-color: #232323;
+            --text-color: white;
+        }
+        body {
+            padding: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            color-scheme: dark;
+            margin: 20ox;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 3px;
+            border-radius: 3px;
+            background-color: var(--background-color);
+            width: 80px;
+            cursor: pointer;
+        }
+        input {
+            padding: 3px;
+            border: 1px solid #fff;
+            border-radius: 3px;
+            background-color: var(--background-color);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--background-color);
+            padding: 20px;
+        }
+        .resultados {
+            display: none;
+            margin-top: 20px;
+            color: var(--text-color);
+            background-color: darkgreen;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculadora de lucratividade</h1>
+    </header>
+    <main>
+        <div class="container">
+            <form id="profitForm">
+                <label for="revenue">Valor do produto:</label>
+                <input type="number" id="valor" name="valor" required>
+                <br>
+                <label for="desc_perc">Desconto à vista (%):</label>
+                <input type="number" id="desc_perc" name="desc_perc">
+                <br>
+                <label for="desc_dinheiro">Desconto à vista (R$):</label>
+                <input type="number" id="desc_dinheiro" name="desc_dinheiro">
+                <br>
+                <label for="num_parcelas">Número de parcelas:</label>
+                <input type="number" id="num_parcelas" name="num_parcelas" required>
+                <br>
+                <label for="rend_cdi">Rendimento CDI (%):</label>
+                <input type="number" id="rend_cdi" name="rend_cdi" value="105" required>
+                <br>
+                <label for="CDI">CDI (% a. a.):</label>
+                <input type="number" id="CDI" name="CDI" value="13.25" required>
+                <br>
+                <button type="submit" onclick="calculateProfit()">Calcular</button>
+                <button type="reset">Limpar</button>
+            </form>
+            <div id="resultados" class="resultados">
+                <p>Ganho parcelado: R$ <span id="ganho_parcelado"></span></p>
+                <p>Ganho à vista: R$ <span id="ganho_a_vista"></span></p>
+                <p>Após quantos meses o parcelamento se torna mais vantajoso: <span id="quando_sera_lucrativo"></span></p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Bruno Dantas</p>
+    </footer>
+    <script>
+        // Facilitando as coisas
+        let gid = id => parseFloat(document.getElementById(id).value);
+
+        // Função que calcula o rendimento acumulado ao longo de um mês
+        function calcularRendimentoMensal(capitalInicial, taxaDiaria) {
+            const dias = 21; // Aproximadamente 21 dias úteis em um mês
+            const montanteFinal = capitalInicial * Math.pow((1 + taxaDiaria), dias);
+            return parseFloat((montanteFinal - capitalInicial).toFixed(2));
+        }
+
+        // Função que simula o rendimento e pagamento parcelado ao longo do tempo
+        function calcularGanhoParcelado(valorTotal, numParcelas, taxaDiaria) {
+            let saldo = valorTotal;
+            const valorParcela = valorTotal / numParcelas;
+            
+            for (let i = 0; i < numParcelas; i++) {
+                saldo += calcularRendimentoMensal(saldo, taxaDiaria);
+                saldo -= valorParcela;
+            }
+            return saldo;
+        }
+
+        // Função que calcula o desconto para pagamento à vista
+        function calcularGanhoAVista(valor, isPercentual, desconto) {
+            return isPercentual ? valor * (desconto / 100) : desconto;
+        }
+
+        // Função que determina após quantos meses o parcelamento se torna mais vantajoso
+        function determinarMesesParaLucro(valorTotal, ganhoAVista, taxaDiaria) {
+            let meses = 2;
+            let ganhoAPrazo = 0;
+            
+            while (ganhoAPrazo < ganhoAVista && meses <= 120) {
+                ganhoAPrazo = calcularGanhoParcelado(valorTotal, meses, taxaDiaria);
+                meses++;
+            }
+            
+            return meses > 120 ? -1 : meses - 1;
+        }
+
+        // Função que calcula o lucro após o botão ser pressionado
+        function calculateProfit() {
+            // Evitar que o formulário seja enviado
+            event.preventDefault();
+
+            // Definição de parâmetros
+            let valorTotal = gid("valor");
+            let isPercentual = false;
+            let taxaDiaria = ((gid("CDI") / 100) * (gid("rend_cdi") / 100)) / 365;
+            let desconto = 0;
+
+            // Verifica se o desconto é percentual ou em dinheiro
+            if (document.getElementById("desc_perc").value !== "" && document.getElementById("desc_dinheiro").value === "") {
+                isPercentual = true;
+                desconto = gid("desc_perc");
+            } else if (document.getElementById("desc_dinheiro").value !== "" && document.getElementById("desc_perc").value === "") {
+                isPercentual = false;
+                desconto = gid("desc_dinheiro");
+            } else {
+                isPercentual = false;
+                desconto = 0;
+            }
+
+            // Cálculo de resultados
+            let ganhoAVista = calcularGanhoAVista(valorTotal, isPercentual, desconto);
+            let ganhoParcelado = calcularGanhoParcelado(valorTotal, gid("num_parcelas"), taxaDiaria);
+            let quandoSeraLucrativo = determinarMesesParaLucro(valorTotal, ganhoAVista, taxaDiaria);
+
+            // Exibir resultados
+            document.getElementById("ganho_parcelado").innerText = ganhoParcelado.toFixed(2);
+            document.getElementById("ganho_a_vista").innerText = ganhoAVista.toFixed(2);
+            document.getElementById("quando_sera_lucrativo").innerText = quandoSeraLucrativo;
+
+            document.getElementById("resultados").style.display = "block";
+        }
+    </script>
+</body>
+</html>

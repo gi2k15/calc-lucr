@@ -29,8 +29,13 @@
             padding: 3px;
             border-radius: 3px;
             background-color: var(--background-color);
-            width: 80px;
+            width: calc(50% - 5px); /* Cada botão ocupa metade do espaço com margem */
             cursor: pointer;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%; /* Mesma largura do input */
         }
         input {
             padding: 3px;
@@ -80,8 +85,10 @@
                 <label for="CDI">CDI (% a. a.):</label>
                 <input type="number" id="CDI" name="CDI" value="13.25" required>
                 <br>
-                <button type="submit" onclick="calculateProfit()">Calcular</button>
-                <button type="reset">Limpar</button>
+                <div class="button-group">
+                    <button type="submit" onclick="calculateProfit()">Calcular</button>
+                    <button type="reset">Limpar</button>
+                </div>
             </form>
             <div id="resultados" class="resultados">
                 <p>Ganho parcelado: R$ <span id="ganho_parcelado"></span></p>

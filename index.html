@@ -4,61 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de lucratividade</title>
-    <style>
-        :root {
-            --background-color: #232323;
-            --text-color: white;
-        }
-        body {
-            padding: 10px;
-            font-family: Arial, Helvetica, sans-serif;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            color-scheme: dark;
-            margin: 20ox;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 3px;
-            border-radius: 3px;
-            background-color: var(--background-color);
-            width: calc(50% - 5px); /* Cada botão ocupa metade do espaço com margem */
-            cursor: pointer;
-        }
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            width: 100%; /* Mesma largura do input */
-        }
-        input {
-            padding: 3px;
-            border: 1px solid #fff;
-            border-radius: 3px;
-            background-color: var(--background-color);
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: var(--background-color);
-            padding: 20px;
-        }
-        .resultados {
-            display: none;
-            margin-top: 20px;
-            color: var(--text-color);
-            background-color: darkgreen;
-            padding: 5px;
-            border-radius: 3px;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/inputmask.min.js" integrity="sha512-eD+19OyeG3GbJ6QGk9uI7TfTozYXAVPz6/Va/YVVuBz7ZFvAeiFzol0whJplf9l6cNQcA8sVxVXvCFW489cAVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -67,8 +14,8 @@
     <main>
         <div class="container">
             <form id="profitForm">
-                <label for="revenue">Valor do produto:</label>
-                <input type="number" id="valor" name="valor" required>
+                <label for="valor">Valor do produto:</label>
+                <input type="text" id="valor" name="valor" required>
                 <br>
                 <label for="desc_perc">Desconto à vista (%):</label>
                 <input type="number" id="desc_perc" name="desc_perc">
@@ -85,7 +32,7 @@
                 <label for="CDI">CDI (% a. a.):</label>
                 <input type="number" id="CDI" name="CDI" value="13.25" required>
                 <br>
-                <div class="button-group">
+                <div class="botoes">
                     <button type="submit" onclick="calculateProfit()">Calcular</button>
                     <button type="reset">Limpar</button>
                 </div>

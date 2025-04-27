@@ -34,11 +34,13 @@ footer {
 .botoes {
     display: flex;
     justify-content: space-between;
-    gap: 10px; /* Add spacing between buttons */
+    gap: 10px;
 }
 
 .botoes button {
-    flex: 1; /* Make buttons occupy equal and maximum space */
+    flex: 1;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .resultados {

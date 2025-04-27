@@ -1,11 +1,15 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #0c0c0c;
-    margin: 10px;
+    margin: 10px auto;
     color: #ffffff;
 }
+h1 {
+    text-align: center;
+    color: #ffcc00;
+}
 .container {
-    max-width: 800px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 20px;
     background-color: #1a1a1a;
@@ -26,4 +30,17 @@ footer {
     margin-top: 20px;
     font-size: 0.8em;
     color: #888;
+}
+.botoes {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Add spacing between buttons */
+}
+
+.botoes button {
+    flex: 1; /* Make buttons occupy equal and maximum space */
+}
+
+.resultados {
+    display: none; 
 }

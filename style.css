@@ -4,9 +4,14 @@ body {
     margin: 10px auto;
     color: #ffffff;
 }
+@media screen and (max-width: 600px) {
+    body {
+        margin: 0;
+        padding: 20px;
+    }   
+}
 h1 {
     text-align: center;
-    color: #ffcc00;
 }
 .container {
     max-width: 500px;

@@ -69,7 +69,11 @@ function calculateProfit(event) {
     // Exibir resultados
     document.getElementById("ganho_parcelado").innerText = ganhoParcelado.toFixed(2);
     document.getElementById("ganho_a_vista").innerText = ganhoAVista.toFixed(2);
-    document.getElementById("vantajoso").innerText = ganhoParcelado > ganhoAVista ? "parcelado" : "à vista";
+    if (ganhoAVista >= ganhoParcelado) {
+        document.getElementById("resultado").innerText = "à vista";
+    } else {
+        document.getElementById("resultado").innerText = "parcelado";
+    }
     document.getElementById("quando_sera_lucrativo").innerText = quandoSeraLucrativo;
 
     document.getElementById("resultados").style.display = "block";

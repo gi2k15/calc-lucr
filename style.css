@@ -46,6 +46,9 @@ footer {
     flex: 1;
     padding: 5px;
     border-radius: 5px;
+    padding: 10px;
+    font-size: large;
+
 }
 
 .resultados {

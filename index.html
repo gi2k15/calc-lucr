@@ -14,7 +14,7 @@
     </header>
     <main>
         <div class="container">
-            <form id="profitForm">
+            <form id="profitForm" onsubmit="calculateProfit(event)">
                 <label for="valor">Valor do produto:</label>
                 <input type="text" id="valor" name="valor" required>
                 <br>
@@ -34,7 +34,7 @@
                 <input type="number" id="CDI" name="CDI" value="14.15" required>
                 <br>
                 <div class="botoes">
-                    <button type="submit" onclick="calculateProfit()">Calcular</button>
+                    <button type="submit">Calcular</button>
                     <button type="reset">Limpar</button>
                 </div>
             </form>

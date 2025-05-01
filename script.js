@@ -39,7 +39,7 @@ function determinarMesesParaLucro(valorTotal, ganhoAVista, taxaDiaria) {
 }
 
 // Função que calcula o lucro após o botão ser pressionado
-function calculateProfit() {
+function calculateProfit(event) {
     // Evitar que o formulário seja enviado
     event.preventDefault();
 
@@ -79,6 +79,4 @@ function toggleInputs() {
     const descDinheiro = document.getElementById('desc_dinheiro');
     descDinheiro.disabled = descPerc.value.trim() !== '';
     descPerc.disabled = descDinheiro.value.trim() !== '';
-    descDinheiro.value = descPerc.value.trim() === '' ? '' : descDinheiro.value;
-    descPerc.value = descDinheiro.value.trim() === '' ? '' : descPerc.value;
 }

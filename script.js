@@ -69,12 +69,12 @@ function calculateProfit(event) {
     // Exibir resultados
     document.getElementById("ganho_parcelado").innerText = ganhoParcelado.toFixed(2);
     document.getElementById("ganho_a_vista").innerText = ganhoAVista.toFixed(2);
+    document.getElementById("vantajoso").innerText = ganhoParcelado > ganhoAVista ? "parcelado" : "à vista";
     document.getElementById("quando_sera_lucrativo").innerText = quandoSeraLucrativo;
 
     document.getElementById("resultados").style.display = "block";
-
-    // Scroll para o final da página
     document.getElementById("resultados").scrollIntoView({ behavior: "smooth" });
+
 }
 
 // Desabilitar os campos de desconto alternadamente

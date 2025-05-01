@@ -19,10 +19,10 @@
                 <input type="text" id="valor" name="valor" required>
                 <br>
                 <label for="desc_perc">Desconto à vista (%):</label>
-                <input type="number" id="desc_perc" name="desc_perc" oninput="toggleInputs()">
+                <input type="number" id="desc_perc" name="desc_perc" oninput="toggleInputs()" required>
                 <br>
                 <label for="desc_dinheiro">Desconto à vista (R$):</label>
-                <input type="number" id="desc_dinheiro" name="desc_dinheiro" oninput="toggleInputs()">
+                <input type="number" id="desc_dinheiro" name="desc_dinheiro" oninput="toggleInputs()" required>
                 <br>
                 <label for="num_parcelas">Número de parcelas:</label>
                 <input type="number" id="num_parcelas" name="num_parcelas" required>
@@ -35,7 +35,7 @@
                 <br>
                 <div class="botoes">
                     <button type="submit">Calcular</button>
-                    <button type="reset">Limpar</button>
+                    <button type="reset" onclick="document.getElementById('resultados').style.display='none'">Limpar</button>
                 </div>
             </form>
             <div id="resultados" class="resultados">

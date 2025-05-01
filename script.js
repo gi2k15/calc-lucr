@@ -74,9 +74,14 @@ function calculateProfit(event) {
     document.getElementById("resultados").style.display = "block";
 }
 
+// Desabilitar os campos de desconto alternadamente
 function toggleInputs() {
     const descPerc = document.getElementById('desc_perc');
     const descDinheiro = document.getElementById('desc_dinheiro');
     descDinheiro.disabled = descPerc.value.trim() !== '';
     descPerc.disabled = descDinheiro.value.trim() !== '';
 }
+
+document.getElementById("profitForm").addEventListener("input", function() {
+    document.getElementById("resultados").style.display = "none";
+});

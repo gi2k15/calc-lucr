@@ -72,6 +72,9 @@ function calculateProfit(event) {
     document.getElementById("quando_sera_lucrativo").innerText = quandoSeraLucrativo;
 
     document.getElementById("resultados").style.display = "block";
+
+    // Scroll para o final da página
+    document.getElementById("resultados").scrollIntoView({ behavior: "smooth" });
 }
 
 // Desabilitar os campos de desconto alternadamente

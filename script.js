@@ -79,4 +79,6 @@ function toggleInputs() {
     const descDinheiro = document.getElementById('desc_dinheiro');
     descDinheiro.disabled = descPerc.value.trim() !== '';
     descPerc.disabled = descDinheiro.value.trim() !== '';
+    descDinheiro.value = descPerc.value.trim() === '' ? '' : descDinheiro.value;
+    descPerc.value = descDinheiro.value.trim() === '' ? '' : descPerc.value;
 }

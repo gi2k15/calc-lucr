@@ -73,3 +73,10 @@ function calculateProfit() {
 
     document.getElementById("resultados").style.display = "block";
 }
+
+function toggleInputs() {
+    const descPerc = document.getElementById('desc_perc');
+    const descDinheiro = document.getElementById('desc_dinheiro');
+    descDinheiro.disabled = descPerc.value.trim() !== '';
+    descPerc.disabled = descDinheiro.value.trim() !== '';
+}

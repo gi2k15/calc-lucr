@@ -67,8 +67,8 @@ function calculateProfit(event) {
     let quandoSeraLucrativo = determinarMesesParaLucro(valorTotal, ganhoAVista, taxaDiaria);
 
     // Exibir resultados
-    document.getElementById("ganho_parcelado").innerText = ganhoParcelado.toFixed(2);
-    document.getElementById("ganho_a_vista").innerText = ganhoAVista.toFixed(2);
+    document.getElementById("ganho_parcelado").innerText = ganhoParcelado.toFixed(2).replace(".", ",");
+    document.getElementById("ganho_a_vista").innerText = ganhoAVista.toFixed(2).replace(".", ",");
     if (ganhoAVista >= ganhoParcelado) {
         document.getElementById("vantajoso_span").innerText = "à vista";
         document.getElementById("vantajoso_p").style.color = "green";

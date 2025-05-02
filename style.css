@@ -41,16 +41,13 @@ footer {
     justify-content: space-between;
     gap: 10px;
 }
-
 .botoes button {
     flex: 1;
     padding: 5px;
     border-radius: 5px;
     padding: 10px;
     font-size: large;
-
 }
-
 .resultados {
     display: none; 
 }

@@ -73,6 +73,7 @@ function calculateProfit(event) {
         document.getElementById("vantajoso_span").innerText = "à vista";
         document.getElementById("vantajoso_p").style.color = "green";
         document.getElementById("quando_sera_lucrativo").innerText = quandoSeraLucrativo;
+        document.getElementById("quando_sera_lucrativo_p").style.display = "block";
     } else {
         document.getElementById("vantajoso_span").innerText = "parcelado";
         document.getElementById("vantajoso_p").style.color = "red";

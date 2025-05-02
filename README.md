@@ -46,4 +46,4 @@ Desenvolvido por **Bruno Dantas**.
 
 ## Licença
 
-Esse projeto está sob a licença [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br)
+Esse projeto está sob a licença [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br).

@@ -72,11 +72,11 @@ function calculateProfit(event) {
     if (ganhoAVista >= ganhoParcelado) {
         document.getElementById("vantajoso_span").innerText = "à vista";
         document.getElementById("vantajoso_p").style.color = "green";
+        document.getElementById("quando_sera_lucrativo").innerText = quandoSeraLucrativo;
     } else {
         document.getElementById("vantajoso_span").innerText = "parcelado";
         document.getElementById("vantajoso_p").style.color = "red";
     }
-    document.getElementById("quando_sera_lucrativo").innerText = quandoSeraLucrativo;
 
     document.getElementById("resultados").style.display = "block";
     document.getElementById("resultados").scrollIntoView({ behavior: "smooth" });

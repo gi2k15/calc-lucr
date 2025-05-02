@@ -76,11 +76,11 @@ function calculateProfit(event) {
     } else {
         document.getElementById("vantajoso_span").innerText = "parcelado";
         document.getElementById("vantajoso_p").style.color = "red";
+        document.getElementById("quando_sera_lucrativo_p").style.display = "none";
     }
 
     document.getElementById("resultados").style.display = "block";
     document.getElementById("resultados").scrollIntoView({ behavior: "smooth" });
-
 }
 
 // Desabilitar os campos de desconto alternadamente

@@ -91,6 +91,7 @@ function toggleInputs() {
     descPerc.disabled = descDinheiro.value.trim() !== '';
 }
 
+// Se algum formulário for alterado, esconde os resultados
 document.getElementById("profitForm").addEventListener("input", function() {
     document.getElementById("resultados").style.display = "none";
 });

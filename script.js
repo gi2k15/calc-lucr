@@ -1,5 +1,53 @@
 // Facilitando as coisas
-let gid = id => parseFloat(document.getElementById(id).value);
+let gid = id => {
+    let val = document.getElementById(id).value;
+    // Remove máscara de moeda (R$, pontos e troca vírgula por ponto)
+    val = val.replace(/[^\d,-]/g, '').replace(/\./g, '').replace(',', '.');
+    return parseFloat(val) || 0;
+};
+
+// Máscara simples para moeda brasileira
+function maskMoeda(el) {
+    let v = el.value.replace(/\D/g, "");
+    v = (v/100).toFixed(2) + "";
+    v = v.replace(".", ",");
+    v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    el.value = "R$ " + v;
+}
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.moeda').forEach(function(input) {
+        input.addEventListener('input', function() {
+            maskMoeda(this);
+        });
+        // Para aplicar a máscara ao carregar com valor preenchido
+        maskMoeda(input);
+    });
+});
+
+// Desabilitar os campos de desconto alternadamente
+function toggleInputs() {
+    const descPerc = document.getElementById('desc_perc');
+    const descDinheiro = document.getElementById('desc_dinheiro');
+    // Checa valor sem considerar máscara
+    const descPercVal = descPerc.value.trim();
+    // Para desc_dinheiro, remove tudo que não for número ou vírgula/ponto
+    const descDinheiroVal = descDinheiro.value.replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.').trim();
+    if (descPercVal !== '') {
+        descDinheiro.disabled = true;
+        descPerc.disabled = false;
+    } else if (descDinheiroVal !== '' && parseFloat(descDinheiroVal) !== 0) {
+        descPerc.disabled = true;
+        descDinheiro.disabled = false;
+    } else {
+        descPerc.disabled = false;
+        descDinheiro.disabled = false;
+    }
+}
+
+// Se algum formulário for alterado, esconde os resultados
+document.getElementById("profitForm").addEventListener("input", function() {
+    document.getElementById("resultados").style.display = "none";
+});
 
 // Função que calcula o rendimento acumulado ao longo de um mês
 function calcularRendimentoMensal(capitalInicial, taxaDiaria) {
@@ -80,19 +128,7 @@ function calculateProfit(event) {
         document.getElementById("quando_sera_lucrativo_p").style.display = "none";
     }
 
+    document.getElementById("profitForm").blur();
     document.getElementById("resultados").style.display = "block";
     document.getElementById("resultados").scrollIntoView({ behavior: "smooth" });
 }
-
-// Desabilitar os campos de desconto alternadamente
-function toggleInputs() {
-    const descPerc = document.getElementById('desc_perc');
-    const descDinheiro = document.getElementById('desc_dinheiro');
-    descDinheiro.disabled = descPerc.value.trim() !== '';
-    descPerc.disabled = descDinheiro.value.trim() !== '';
-}
-
-// Se algum formulário for alterado, esconde os resultados
-document.getElementById("profitForm").addEventListener("input", function() {
-    document.getElementById("resultados").style.display = "none";
-});

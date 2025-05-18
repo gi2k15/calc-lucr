@@ -6,6 +6,37 @@ let gid = id => {
     return parseFloat(val) || 0;
 };
 
+// Máscara simples para moeda brasileira
+function maskMoeda(el) {
+    let v = el.value.replace(/\D/g, "");
+    v = (v/100).toFixed(2) + "";
+    v = v.replace(".", ",");
+    v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    el.value = "R$ " + v;
+}
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.moeda').forEach(function(input) {
+        input.addEventListener('input', function() {
+            maskMoeda(this);
+        });
+        // Para aplicar a máscara ao carregar com valor preenchido
+        maskMoeda(input);
+    });
+});
+
+// Desabilitar os campos de desconto alternadamente
+function toggleInputs() {
+    const descPerc = document.getElementById('desc_perc');
+    const descDinheiro = document.getElementById('desc_dinheiro');
+    descDinheiro.disabled = descPerc.value.trim() !== '';
+    descPerc.disabled = descDinheiro.value.trim() !== '';
+}
+
+// Se algum formulário for alterado, esconde os resultados
+document.getElementById("profitForm").addEventListener("input", function() {
+    document.getElementById("resultados").style.display = "none";
+});
+
 // Função que calcula o rendimento acumulado ao longo de um mês
 function calcularRendimentoMensal(capitalInicial, taxaDiaria) {
     const dias = 21; // Aproximadamente 21 dias úteis em um mês
@@ -89,33 +120,3 @@ function calculateProfit(event) {
     document.getElementById("resultados").scrollIntoView({ behavior: "smooth" });
 }
 
-// Máscara simples para moeda brasileira
-function maskMoeda(el) {
-    let v = el.value.replace(/\D/g, "");
-    v = (v/100).toFixed(2) + "";
-    v = v.replace(".", ",");
-    v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-    el.value = "R$ " + v;
-}
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.moeda').forEach(function(input) {
-        input.addEventListener('input', function() {
-            maskMoeda(this);
-        });
-        // Para aplicar a máscara ao carregar com valor preenchido
-        maskMoeda(input);
-    });
-});
-
-// Desabilitar os campos de desconto alternadamente
-function toggleInputs() {
-    const descPerc = document.getElementById('desc_perc');
-    const descDinheiro = document.getElementById('desc_dinheiro');
-    descDinheiro.disabled = descPerc.value.trim() !== '';
-    descPerc.disabled = descDinheiro.value.trim() !== '';
-}
-
-// Se algum formulário for alterado, esconde os resultados
-document.getElementById("profitForm").addEventListener("input", function() {
-    document.getElementById("resultados").style.display = "none";
-});

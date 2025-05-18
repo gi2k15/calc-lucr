@@ -28,8 +28,20 @@ document.addEventListener('DOMContentLoaded', function() {
 function toggleInputs() {
     const descPerc = document.getElementById('desc_perc');
     const descDinheiro = document.getElementById('desc_dinheiro');
-    descDinheiro.disabled = descPerc.value.trim() !== '';
-    descPerc.disabled = descDinheiro.value.trim() !== '';
+    // Checa valor sem considerar máscara
+    const descPercVal = descPerc.value.trim();
+    // Para desc_dinheiro, remove tudo que não for número ou vírgula/ponto
+    const descDinheiroVal = descDinheiro.value.replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.').trim();
+    if (descPercVal !== '') {
+        descDinheiro.disabled = true;
+        descPerc.disabled = false;
+    } else if (descDinheiroVal !== '' && parseFloat(descDinheiroVal) !== 0) {
+        descPerc.disabled = true;
+        descDinheiro.disabled = false;
+    } else {
+        descPerc.disabled = false;
+        descDinheiro.disabled = false;
+    }
 }
 
 // Se algum formulário for alterado, esconde os resultados
@@ -116,7 +128,7 @@ function calculateProfit(event) {
         document.getElementById("quando_sera_lucrativo_p").style.display = "none";
     }
 
+    document.getElementById("profitForm").blur();
     document.getElementById("resultados").style.display = "block";
     document.getElementById("resultados").scrollIntoView({ behavior: "smooth" });
 }
-

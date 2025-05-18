@@ -16,13 +16,13 @@
         <div class="container">
             <form id="profitForm" onsubmit="calculateProfit(event)">
                 <label for="valor">Valor do produto (R$):</label>
-                <input type="text" id="valor" name="valor" class="moeda" required>
+                <input type="text" id="valor" name="valor" class="moeda" inputmode="numeric" required>
                 <br>
                 <label for="desc_perc">Desconto à vista (%):</label>
                 <input type="number" id="desc_perc" oninput="toggleInputs()">
                 <br>
                 <label for="desc_dinheiro">Desconto à vista (R$):</label>
-                <input type="text" id="desc_dinheiro" class="moeda" oninput="toggleInputs()">
+                <input type="text" id="desc_dinheiro" class="moeda" inputmode="numeric" oninput="toggleInputs()">
                 <br>
                 <label for="num_parcelas">Número de parcelas:</label>
                 <input type="number" id="num_parcelas" required>
